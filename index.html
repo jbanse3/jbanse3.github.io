@@ -1,27 +1,140 @@
-<H1 id="GuessWord"></H1>
-<input id="Choice1" onclick="myFunction()" type="button" value="to mention"> </input>
-<input id="Choice1" type="button" value="to sit"></input>
-<input id="Choice1" type="button" value="laughing"></input>
-<input id="Choice1" type="button" value="Square"></input>
+
+
+<div id="Div1">
+    <H1>Apakah Kamu ingin belajar bahasa?</H1>
+    <H3>Do you want to learn Bahasa?</H3>
+    <input id="Choice2"  onclick="myFunc1()" type="button" value="Iya"></input>
+    <input id="Choice3" type="button" value="Tidak"></input>
+</div>
+<br>
+<div id="Div2" style="display: none;">
+    <table>
+        <td> 
+            <img
+            src="Teacher.svg"
+            alt="Teacher"
+            height="200px"
+            width="100px" />
+            <div class="message">
+                <div class="container">
+                    <div class="arrow">
+                      <div class="outer"></div>
+                      <div class="inner"></div>
+                    </div>
+                    <div class="message-body">
+                      <p>   <a>Nama saya</a><input type="text" value="Joyo" size="10"></input></p>
+                    </div>
+                  </div>
+             
+            </div>
+        </td>
+        <td>    
+
+            <div class="message">
+                <div class="container">
+                    <div class="arrow">
+                      <div class="outer"></div>
+                      <div class="inner"></div>
+                    </div>
+                    <div class="message-body">
+                      <p>  <a>Nama kamu</a><input type="text" value="apa?"size="10"></input><button onclick="myFunc2()">✅</button></p>
+                    </div>
+                  </div>
+            
+    </br>
+            <img
+            src="Leanr.svg"
+            alt="Learn"
+            height="200px"
+            width="100px" />
+        </td>
+        
+    </table>
+
+
+</div>
+<div id="Div3" style="display: none;">
+    <H1 id="GuessWord"></H1>
+    <input id="Choice1" onclick="myFunction()" type="button" value="to mention"> </input>
+    <input id="Choice1" type="button" value="to sit"></input>
+    <input id="Choice1" type="button" value="laughing"></input>
+    <input id="Choice1" type="button" value="Square"></input>    
+</div>
 
 
 <script>
-document.getElementById('GuessWord').innerHTML="menyebut"
-
-function myFunction() {
-  alert("Good");
+function myFunc1() {
+    document.getElementById('Div2').style.display="block"
+    document.getElementById('Choice3').style.display="none"
 }
-
-Word=['setara']
-WordEnglish=['equal']
-WordForm=['=',"good enough"]
-
+function myFunc2() {
+    document.getElementById('Div2').style.display="block"
+    document.getElementById('Choice3').style.display="none"
+}
 </script>
 
 <style>
   html
   {
     font-family: sans-serif;
+    background-color: beige;
   }
+
+/* Message box starts here */
+.container {
+    float:right;
+  clear: both;
+  position: relative;
+}
+
+.container .arrow {
+  width: 12px;
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+  float: left;
+  top: 6px;
+  right: -1px;
+}
+
+.container .arrow .outer {
+  width: 0;
+  height: 0;
+  border-right: 20px solid #000000;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container .arrow .inner {
+  width: 0;
+  height: 0;
+  border-right: 20px solid #ffffff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+.container .message-body {
+  float: left;
+  width: 300px;
+  height: auto;
+  border: 1px solid #CCC;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding: 6px 8px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.container .message-body p {
+  margin: 0;
+}
 
 </style>
