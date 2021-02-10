@@ -1,0 +1,169 @@
+
+
+<div id="Div1">
+    <H1>Apakah Kamu ingin belajar bahasa?</H1>
+    <H3>Do you want to learn Bahasa?</H3>
+    <input id="Choice2"  onclick="myFunc1()" type="button" value="Iya"></input>
+    <input id="Choice3" type="button" value="Tidak"></input>
+</div>
+<br>
+<div id="Div2" style="display: none;">
+    <table>
+        <td> 
+
+          <p class="bubble speech" contenteditable>
+         <a>Nama saya</a><input type="text" value="Joyo" size="10"></input>
+          </p>
+            <img
+            src="Teacher.svg"
+            alt="Teacher"
+            height="200px"
+            width="100px" />
+        </td>
+        <td>    
+          <p class="bubble speech" contenteditable>
+            <a>Nama kamu</a><input type="text" value="siapa?" id="nameinput"  size="10"></input><button onclick="myFunc2()">✅</button>
+             </p>
+            <img
+            src="Leanr.svg"
+            alt="Learn"
+            height="200px"
+            width="100px" />
+        </td>
+        
+    </table>
+
+
+</div>
+
+<div id="Div3" style="display: none;">
+  <table>
+      <td> 
+
+        <p class="bubble speech" contenteditable>
+       <a>Selamat pagi <a id="nametext">ddd</a></a>
+        </p>
+          <img
+          src="Teacher.svg"
+          alt="Teacher"
+          height="200px"
+          width="100px" />
+      </td>
+      <td>    
+        <p class="bubble speech" contenteditable>
+          <a>Selamat <a id="day">malam</a> Joyo</a>
+           </p>
+          <img
+          src="Leanr.svg"
+          alt="Learn"
+          height="200px"
+          width="100px" />
+      </td>
+      
+  </table>
+
+
+</div>
+
+<!-- 
+<div id="Div4" style="display: none;">
+    <H1 id="GuessWord"></H1>
+    <input id="Choice1" onclick="myFunction()" type="button" value="to mention"> </input>
+    <input id="Choice1" type="button" value="to sit"></input>
+    <input id="Choice1" type="button" value="laughing"></input>
+    <input id="Choice1" type="button" value="Square"></input>    
+</div> -->
+
+
+<script>
+  var nameplayer="tanpa nama"
+function myFunc1() {
+    document.getElementById('Div2').style.display="block"
+    document.getElementById('Choice3').style.display="none"
+}
+
+function myFunc2() {
+    // document.getElementById('Div3').style.display="block"
+    // document.getElementById('Div2').style.display="none"
+    var nameplayer=document.getElementById('nameinput').value;
+    document.getElementById('nametext').innerHTML=nameplayer;
+    var url = "https://jbanse3.github.io/index2.html";
+window.open(url, '_top');
+}
+</script>
+
+<style>
+  html
+  {
+    font-family: sans-serif;
+    background-color: beige;
+  }
+
+/* Message box starts here */
+
+p.bubble {
+	position: relative;
+	width: 300px;
+	text-align: center;
+	line-height: 1.4em;
+	margin: 15px auto;
+	background-color: #fff;
+	border: 5px solid #333;
+	border-radius: 30px;
+	font-family: sans-serif;
+	padding: 4px;
+	font-size: large;
+}
+
+p.thought {
+	width: 300px;
+	border-radius: 200px;
+	padding: 30px;	
+}
+
+p.bubble:before,
+p.bubble:after {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+}
+
+p.speech:before {
+	left: 80px;
+	bottom: -50px;
+	border: 25px solid;
+	border-color: #333 transparent transparent #333;
+}
+
+p.speech:after {
+	left: 88px;
+	bottom: -30px;
+	border: 15px solid;
+	border-color: #fff transparent transparent #fff;
+}
+
+p.thought:before,
+p.thought:after {
+	left: 10px;
+	bottom: -30px;
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border: 8px solid #333;
+	-webkit-border-radius: 28px;
+	-moz-border-radius: 28px;
+	border-radius: 28px;
+}
+
+p.thought:after {
+	width: 20px;
+	height: 20px;
+	left: 5px;
+	bottom: -40px;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+	border-radius: 18px;
+}
+
+</style>
