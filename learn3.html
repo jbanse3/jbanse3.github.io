@@ -1,0 +1,124 @@
+<H1>Simulasi pasar saham</H1>
+<H2>satu tahun untuk menjadi kaya</H2>
+
+<H3>WEEK <a id="week">1</a></H3>
+
+<a>JOYO harga saham: <a id="joyo">150</a>$</a><button onclick="buy(0)">membeli</button><br>
+<a>IOTA coin harga: <a id="coin">1.11</a>$</a><button onclick="buy(1)">membeli</button><br>
+<a>JERELUV harga saham: <a id="jere">100</a>$ <button onclick="buy(2)">membeli</button></a><br>
+<a>TESLA harga saham <a id="tesla">810</a>$</a><button onclick="buy(3)">membeli</button><br>
+<a>VIRGIN GALACTIC harga saham <a id="virgin">54</a>$</a><button onclick="buy(4)">membeli</button><br>
+<br><br>
+<a>DOMPET:</a><br>
+<p>Likuiditas :<a id="liquid">1000</a>$</p><br>
+<table>
+    <tr><th>Nama</th><th>jumlah</th><th>nilai total</th></tr>
+    <tr><td>JOYO</td><td><a id="joyoown">0</a></td><td><a id="joyovalue">0</a></td></tr>
+    <tr><td>IOTA COIN</td><td><a id="coinown">0</a></td><td><a id="coinvalue">0</a></td></tr>
+    <tr><td>JERELUV COIN</td><td><a id="jereown">0</a></td><td><a id="jerevalue">0</a></td></tr>
+    <tr><td>TESLA</td><td><a id="teslaown">0</a></td><td><a id="teslavalue">0</a></td></tr>
+    <tr><td>VIRGIN</td><td><a id="virginown">0</a></td><td><a id="virginvalue">0</a></td></tr>
+</table>
+
+<p>TOTAL:<a id="total">0</a>$</p>
+
+<button onclick="endweek()">minggu depan</button>
+<script>
+Week=1;
+
+var joyo=150;
+var jere=100;
+var coin=1.11;
+var tesla=810;
+var virgin=54;
+
+var joyotot=0;
+var cointot=0;
+var jeretot=0;
+var teslatot=0;
+var virgintot=0;
+
+var stock=["joyo","coin","jere","tesla","virgin"]
+var stocknumber=[0,0,0,0,0];
+var stockvalueover=[0,0,0,0,0];
+var stockprice=[150,1.11,100,810,54];
+
+var total=0;
+var liquid=2500;
+total=liquid+stockvalueover[0]+stockvalueover[1]+stockvalueover[2]+stockvalueover[3]+stockvalueover[4];
+document.getElementById("total").innerHTML=Math.round(total);
+document.getElementById("liquid").innerHTML=Math.round(liquid);
+
+
+function buy(num)
+{
+    if(liquid-stockprice[num]>0)
+    {
+ stocknumber[num]+=1;
+console.log(stocknumber[num])
+document.getElementById(stock[num]+"own").innerHTML=stocknumber[num];
+
+liquid=liquid-stockprice[num];
+stockvalueover[num]+=stockprice[num];
+
+document.getElementById(stock[num]+'value').innerHTML=Math.round(stockvalueover[num]);
+
+document.getElementById("total").innerHTML=
+total=liquid+stockvalueover[0]+stockvalueover[1]+stockvalueover[2]+stockvalueover[3]+stockvalueover[4];
+document.getElementById("total").innerHTML=Math.round(total);
+document.getElementById("liquid").innerHTML=Math.round(liquid);
+
+
+
+    }
+    else
+    {
+        alert ('maaf Anda tidak memiliki cukup likuiditas')
+    }
+}
+
+function endweek()
+{
+    if(Week==52){
+        alert('Anda total dompet : '+Math.round(total))
+        if(stockvalueover[2]>0)
+        {
+        alert('Maaf Jereluv adalah scam')
+        alert('Anda total dompet : '+Math.round(total-stockvalueover[2]))
+        alert('But love invest is the best investment, thank you...❤️')
+        }
+        window.location.href = "https://jbanse3.github.io/kiss.png"
+    }
+
+Week+=1;
+document.getElementById("week").innerHTML=Week;
+stockprice[0]+=(Math.random()/10+0.94)*stockprice[0]-stockprice[0];
+stockprice[1]+=(Math.random()/7+0.91)*stockprice[1]-stockprice[1];
+stockprice[2]+=(Math.random()/10+1.02)*stockprice[2]-stockprice[2];
+stockprice[3]+=(Math.random()/9+0.95)*stockprice[3]-stockprice[3];
+stockprice[4]+=(Math.random()/8+0.94)*stockprice[4]-stockprice[4];
+
+for (i = 0; i < 5; i++) {
+document.getElementById(stock[i]).innerHTML=(Math.round(stockprice[i] * 100)/100).toFixed(2);
+stockvalueover[i]=stocknumber[i]*stockprice[i];
+document.getElementById(stock[i]+'value').innerHTML=Math.round(stockvalueover[i]);
+}
+
+total=liquid+stockvalueover[0]+stockvalueover[1]+stockvalueover[2]+stockvalueover[3]+stockvalueover[4];
+document.getElementById("total").innerHTML=Math.round(total);
+document.getElementById("liquid").innerHTML=Math.round(liquid);
+}
+
+</script>
+<style>
+    html
+    {
+      font-family: sans-serif;
+      color:white;
+      background-color: black;
+    }
+    p
+    {
+        margin:0;
+    }
+  </style>
