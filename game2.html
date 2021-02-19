@@ -34,23 +34,23 @@
     <H2>Button</H2>
     <div id="Commandlist"> 
      <input type="button" onclick="clickbutton(this)"  id="Command0" value="Sky" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command1" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command2" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command3" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command4" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command5" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command6" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command7" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command8" value="Suddenly" ></input>
-     <br>
+     
      <input type="button" onclick="clickbutton(this)" id="Command9" value="Suddenly" ></input>
     </div>
 <br>
@@ -85,7 +85,7 @@ for (let index = 0; index <10; index++) {
 document.getElementById('order'+index).innerHTML=serie1[serieNum1[index]];
 document.getElementById('Command'+index).value=serie2[serieNum2[index]];
 document.getElementById('Command'+index).name=serieNum2[index];
-document.getElementById('fullorder'+index).innerHTML=document.getElementById('fullorder'+index).innerHTML+serieNum1[index];
+
 document.getElementById("Command"+index).style.backgroundColor="red";
 }
 
