@@ -1,0 +1,124 @@
+
+<body>
+    <H1>The Wrong Notice</H1>
+    <span>The button are in bahasa, sorry you will need to translate</span><br>
+    <span>The instruction are in bahasa, sorry you will need to translate</span>
+<div id="checklist">
+    <H2>The checklist</H2>
+    <div id="liste">
+
+        <span id="fullorder0">1.klik <b id="order0">Mendadak</b></span>
+        <br>
+        <span id="fullorder1">2.klik <b id="order1">Langit</b></span>
+        <br>
+        <span id="fullorder2">3.klik <b id="order2">Mendadak</b></span>
+        <br>
+        <span id="fullorder3">4.klik <b id="order3">Mendadak</b></span>
+        <br>
+        <span id="fullorder4">5.klik <b id="order4">Mendadak</b></span>
+        <br>
+        <span id="fullorder5"> 6.klik <b id="order5">Mendadak</b></span>
+        <br>
+        <span id="fullorder6">7.klik <b id="order6">Mendadak</b></span>
+        <br>
+        <span id="fullorder7">8.klik <b id="order7">Mendadak</b></span>
+        <br>
+        <span id="fullorder8">9.klik <b id="order8">Mendadak</b></span>
+        <br>
+        <span id="fullorder9">10.klik <b id="order9">Mendadak</b></span>
+ 
+    </div>
+</div>
+
+<div id="Command">
+    <H2>Button</H2>
+    <div id="Commandlist"> 
+     <input type="button" onclick="clickbutton(this)"  id="Command0" value="Sky" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command1" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command2" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command3" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command4" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command5" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command6" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command7" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command8" value="Suddenly" ></input>
+     <br>
+     <input type="button" onclick="clickbutton(this)" id="Command9" value="Suddenly" ></input>
+    </div>
+<br>
+
+    <button>validation</button>
+</div>
+<canvas>
+
+</canvas>
+</body>
+
+<style>
+    html
+    {
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+</style>
+
+<script>
+var serie1=["setelah","kembali","sedikit","hanya","putaran","pria","tahun","datang","menunjukkan","setiap"];
+var serie2=["after","back","little","only","round","man","year","came","show","every"];
+var serieNum1=[0,1,2,3,4,5,6,7,8,9];
+var serieNum2=[0,1,2,3,4,5,6,7,8,9];
+shuffle(serieNum1);
+shuffle(serieNum2);
+var numSerie=0;
+var serieActual=serieNum1[numSerie];
+
+
+for (let index = 0; index <10; index++) {
+document.getElementById('order'+index).innerHTML=serie1[serieNum1[index]];
+document.getElementById('Command'+index).value=serie2[serieNum2[index]];
+document.getElementById('Command'+index).name=serieNum2[index];
+document.getElementById('fullorder'+index).innerHTML=document.getElementById('fullorder'+index).innerHTML+serieNum1[index];
+document.getElementById("Command"+index).style.backgroundColor="red";
+}
+
+    function clickbutton(buttonthis)
+    {
+        
+        if(buttonthis.name==serieActual)
+        {
+            document.getElementById(buttonthis.id).style.backgroundColor="green";
+            document.getElementById("fullorder"+numSerie).style.textDecoration="line-through";
+            numSerie+=1;
+            serieActual=serieNum1[numSerie];
+        }
+    }
+//document.getElementById("Command1").style.backgroundColor="red";
+
+
+
+function shuffle(a)
+{
+   var j = 0;
+   var valI = '';
+   var valJ = valI;
+   var l = a.length - 1;
+   while(l > -1)
+   {
+		j = Math.floor(Math.random() * l);
+		valI = a[l];
+		valJ = a[j];
+		a[l] = valJ;
+		a[j] = valI;
+		l = l - 1;
+	}
+	return a;
+ }
+</script>
