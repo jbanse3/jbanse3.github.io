@@ -1,37 +1,44 @@
 
 <body>
-    <H1>The Wrong Notice</H1>
-    <span>The button are in bahasa, sorry you will need to translate</span><br>
-    <span>The instruction are in bahasa, sorry you will need to translate</span>
-<div id="checklist">
-    <H2>The checklist</H2>
-    <div id="liste">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+<div id='stars'></div>
 
-        <span id="fullorder0">1.klik <b id="order0">Mendadak</b></span>
-        <br>
-        <span id="fullorder1">2.klik <b id="order1">Langit</b></span>
-        <br>
-        <span id="fullorder2">3.klik <b id="order2">Mendadak</b></span>
-        <br>
-        <span id="fullorder3">4.klik <b id="order3">Mendadak</b></span>
-        <br>
-        <span id="fullorder4">5.klik <b id="order4">Mendadak</b></span>
-        <br>
-        <span id="fullorder5"> 6.klik <b id="order5">Mendadak</b></span>
-        <br>
-        <span id="fullorder6">7.klik <b id="order6">Mendadak</b></span>
-        <br>
-        <span id="fullorder7">8.klik <b id="order7">Mendadak</b></span>
-        <br>
-        <span id="fullorder8">9.klik <b id="order8">Mendadak</b></span>
-        <br>
-        <span id="fullorder9">10.klik <b id="order9">Mendadak</b></span>
- 
+<!--other style en CSS https://codepen.io/chrisyboy53/pen/oXZzQb -->
+
+<!-- https://medium.com/better-programming/fun-with-html-canvas-lets-create-a-star-field-a46b0fed5002 -->
+    <canvas
+    id="canvas"
+    style="width: 100%; height: 400px; padding: 0;margin: 0;"
+  ></canvas>
+
+  <div id="Command">
+    <div id="checklist">
+        <H2>Checklist</H2>
+        <div id="liste">
+    
+            <span id="fullorder0">1.click on <b id="order0">Mendadak</b></span>
+            <br>
+            <span id="fullorder1">2.click on <b id="order1">Langit</b></span>
+            <br>
+            <span id="fullorder2">3.click on <b id="order2">Mendadak</b></span>
+            <br>
+            <span id="fullorder3">4.click on <b id="order3">Mendadak</b></span>
+            <br>
+            <span id="fullorder4">5.click on <b id="order4">Mendadak</b></span>
+            <br>
+            <span id="fullorder5"> 6.click on <b id="order5">Mendadak</b></span>
+            <br>
+            <span id="fullorder6">7.click on <b id="order6">Mendadak</b></span>
+            <br>
+            <span id="fullorder7">8.click on <b id="order7">Mendadak</b></span>
+            <br>
+            <span id="fullorder8">9.click on <b id="order8">Mendadak</b></span>
+            <br>
+            <span id="fullorder9">10.click on <b id="order9">Mendadak</b></span>
+            <br>
+            <span id="fullorder10">10.Put Heat on level<b id="order10">4</b></span>
+        </div>
     </div>
-</div>
-
-<div id="Command">
-    <H2>Button</H2>
     <div id="Commandlist"> 
      <input type="button" onclick="clickbutton(this)"  id="Command0" value="Sky" ></input>
      
@@ -52,27 +59,213 @@
      <input type="button" onclick="clickbutton(this)" id="Command8" value="Suddenly" ></input>
      
      <input type="button" onclick="clickbutton(this)" id="Command9" value="Suddenly" ></input>
-    </div>
-<br>
 
-    <button>validation</button>
+    <p>Panas<input type="range" id="range1" onchange="speedup()" min="1" max="5"></input><a id="range1value">3</a></p>
+    <br>
+     
+    <!-- <button>validation</button> -->
+    </div>
+
+    
+    
+
+
+
 </div>
+
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const c = canvas.getContext("2d");
+
+    let w;
+    let h;
+
+    const setCanvasExtents = () => {
+      w = document.body.clientWidth;
+      h = document.body.clientHeight;
+      canvas.width = w;
+      canvas.height = h;
+    };
+
+    setCanvasExtents();
+
+    window.onresize = () => {
+      setCanvasExtents();
+    };
+
+    const makeStars = count => {
+      const out = [];
+      for (let i = 0; i < count; i++) {
+        const s = {
+          x: Math.random() * 1600 - 800,
+          y: Math.random() * 900 - 450,
+          z: Math.random() * 1000
+        };
+        out.push(s);
+      }
+      return out;
+    };
+
+    let stars = makeStars(600);
+
+    const clear = () => {
+      c.fillStyle = "black";
+      c.fillRect(0, 0, canvas.width, canvas.height);
+    };
+    const cockpit = () => {
+        c.beginPath();
+        c.lineWidth = 8;
+        c.strokeStyle = 'grey';
+        c.moveTo(canvas.width/9,canvas.height/3 );
+        c.lineTo(canvas.width/4, -5);
+        c.stroke();
+        c.moveTo(canvas.width/9,canvas.height/3 );
+        c.lineTo(canvas.width/9,canvas.height/3*2);
+        c.stroke();
+        c.moveTo(canvas.width/4,canvas.height+5 );
+        c.lineTo(canvas.width/9,canvas.height/3*2);
+        c.stroke();
+        c.moveTo(canvas.width/9*8,canvas.height/3 );
+        c.lineTo(canvas.width/4*3, -5);
+        c.stroke();
+        c.moveTo(canvas.width/9*8,canvas.height/3 );
+        c.lineTo(canvas.width/9*8,canvas.height/3*2);
+        c.stroke();
+        c.moveTo(canvas.width/4*3,canvas.height+5 );
+        c.lineTo(canvas.width/9*8,canvas.height/3*2);
+        c.stroke();
+    };
+
+    const putPixel = (x, y, brightness) => {
+      const intensity = brightness * 255;
+      const rgb = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
+      c.fillStyle = rgb;
+      c.fillRect(x, y, 1,1);
+    };
+
+    const moveStars = distance => {
+      const count = stars.length;
+      for (var i = 0; i < count; i++) {
+        const s = stars[i];
+        s.z -= distance;
+        while (s.z <= 1) {
+          s.z += 1000;
+        }
+      }
+    };
+
+
+
+    let prevTime;
+    const init = time => {
+      prevTime = time;
+      requestAnimationFrame(tick);
+    };
+
+    var Speedtime=0.1;//variable for speed of stars
+    const tick = time => {
+      let elapsed = time - prevTime;
+      prevTime = time;
+
+      moveStars(elapsed * Speedtime);
+
+      clear();
+
+      const cx = w / 2;
+      const cy = h / 2;
+
+      const count = stars.length;
+      for (var i = 0; i < count; i++) {
+        const star = stars[i];
+
+        const x = cx + star.x / (star.z * 0.001);
+        const y = cy + star.y / (star.z * 0.001);
+
+        if (x < 0 || x >= w || y < 0 || y >= h) {
+          continue;
+        }
+
+        const d = star.z / 1000.0;
+        const b = 1 - d * d;
+
+        putPixel(x, y, b);
+  
+        cockpit();
+      }
+
+     
+        requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(init);
+  </script>
+
+<div id='stars3'></div>
+    <H1>The Wrong Notice</H1>
+    <span>The button are in bahasa, sorry you will need to translate</span><br>
+    <span>The instruction are in bahasa, sorry you will need to translate</span>
+
+
 <canvas>
 
 </canvas>
 </body>
-
+<!-- <link rel="stylesheet" href="stars.css"> -->
 <style>
     html
     {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);;
+        color:white;
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    #Command
+    {
+    width: 100%;
+    background-color: black;
+    position: relative;
+    margin-left: -50vw;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom:0px;
+    padding-left:10px;
+    left: 50%;
+    font-size: 15px;
+    font-family:'Courier New', Courier, monospace;
+    }
 
+    #Commandlist
+    {
+    font-size: 15px;
+    font-family:'Courier New', Courier, monospace;
+    }
+
+    #checklist
+    {
+        float: right;
+    background-color: whitesmoke;
+    color:black;
+    width: 250px;
+    right:0px
+    }
+
+    input[type="button"]
+    {
+    font-size:20px;
+    font-family:'Courier New', Courier, monospace;
+    }
 </style>
 
 <script>
-var serie1=["setelah","kembali","sedikit","hanya","putaran","pria","tahun","datang","menunjukkan","setiap"];
-var serie2=["after","back","little","only","round","man","year","came","show","every"];
+function speedup()
+{
+    Speedtime=document.getElementById("range1").value/10;
+    
+    document.getElementById("range1value").innerHTML=document.getElementById("range1").value;
+}
+
+var serie2=["setelah","kembali","sedikit","hanya","putaran","pria","tahun","datang","menunjukkan","setiap"];
+var serie1=["after","back","little","only","round","man","year","came","show","every"];
 var serieNum1=[0,1,2,3,4,5,6,7,8,9];
 var serieNum2=[0,1,2,3,4,5,6,7,8,9];
 shuffle(serieNum1);
