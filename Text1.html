@@ -1,0 +1,101 @@
+<H1>Bagaimana jika saya menulis bahasa indonesia setiap hari?</H1>
+
+
+<body>
+    Saya ingin menulis bahasa. <br>
+    Bisa menulis tentang cerita<br>
+    bisa menulis penjelasan<br>
+    <br>
+
+    Suatu ketika saya naik kereta di Eropa<br>
+    Saya pergi ke Amsterdam<br>
+    Saya suka asitektur Amsterdam<br>
+
+    ayo pergi ke sarajevo<br>
+
+    Dan mengunjungi roma, saya tidak pernah pergi ke roma
+
+</body>
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900');
+
+$c-base: #444;
+$c-dark: #111;
+$c-primary: #6fd1bd;
+$c-secondary: salmon;
+
+$b-fontSize: 1.6rem;
+$b-fontFamily: Lato, Helvetica, Arial, sans-serif;
+$b-lineHeight: 1.5;
+$b-animType: ease-in-out; 
+$b-animSpeed: 0.2s;
+$b-shadowSize: 4px;
+
+$Title-color: $c-dark;
+
+
+// 
+// Base styles
+//
+/* H1
+{
+    font-family: Verdana;
+} */
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: $c-base;
+  font-size: $b-fontSize;
+  font-family: $b-fontFamily;
+  line-height: $b-lineHeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+// 
+// Title
+// 
+
+.Title {
+  @include responsive-font(8vw, 42px, 75px, 50px);
+  color: $Title-color;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.Title-sub {
+  font-family: $b-fontFamily;
+  font-size: 0.34em;
+  letter-spacing: 0.16em;
+  font-weight: 400;
+  text-transform: none;
+  display: block;
+  margin-top: unitSize(1.5);
+  padding-top: unitSize(2);
+  border-top: 0.45em solid;
+}
+
+.u-shadow {
+  text-shadow: $b-shadowSize $b-shadowSize 0 $c-primary;
+  transition: text-shadow $b-animSpeed $b-animType;
+  @at-root a:hover #{&} {
+    text-shadow: (-$b-shadowSize) (-$b-shadowSize) 0 $c-secondary;
+  }
+}
+
+ 
+
+
+</style>
