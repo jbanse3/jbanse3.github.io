@@ -1,0 +1,398 @@
+<!--@jbanse3
+
+    1.Création du plan
+        1.1 Plan générale
+        1.2 Plan Création
+    2.Création du site
+        2.1 Fichier Index
+            2.1.1 Mise en place du collage Excel
+                2.1.1.1 Création du tableau de départ
+                2.1.1.2 Création de l'array de départ
+            2.1.2 Création des graphiques
+              2.1.2.1 Graphique Charts
+
+            2.1.2 Propriété de la sheet
+                2.1.2.1 supression de ligne ou colonne
+                  2.1.2.1.1 Suppression de colonne
+                  2.1.2.1.2 Suppression de ligne
+
+    3.Mise en place du serveur
+    4.Mise à disposition en production
+
+
+-->
+<body>
+    <div> 
+        <p>Paste excel data here:</p>
+        <div id="Param">
+          <label class="switch">
+            <input type="checkbox" class="param" onclick="ColumnModif()">
+            <span class="slider">Column/row</span>
+          </label>
+        </div>
+        <div id="excel_table">
+            <table>
+                <tr>
+                    <td class="onlyTd" onclick="tdclick(0,0);" ondblclick="tddbclick(0,0);" id="0-0cell">Paste on this cell</td>
+                    <td class="onlyTd" onclick="tdclick(0,1);" ondblclick="tddbclick(0,1);" id="0-1cell">Titre</td>
+                </tr>
+                <tr>
+                    <td class="onlyTd" onclick="tdclick(1,0);" ondblclick="tddbclick(1,0);" id="1-0cell">3</td>
+                    <td class="onlyTd" onclick="tdclick(1,1);" ondblclick="tddbclick(1,1);" id="1-1cell">2</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+<canvas id="canvascell" width="400" height="400"></canvas>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="Charts.js">
+  drawthePie(celldata,"canvascell");
+</script>
+
+<!-- variable -->
+<script>
+    var celldata=[["","Titre"],[3,2]];
+    var ActiveCell_X="no";
+    var ActiveCell_Y="no";
+    var deleteLineCol=false;
+</script>
+
+<script>
+//function double click sur une cellule
+function tddbclick(IdCell_Y,IdCell_X)
+{
+  //si une cellule est déjà selectionné  
+  if(document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"input"))
+    {
+        //Ajout dans la variable des données du tableau de la cellule précedement sélectionné.
+        celldata[ActiveCell_Y][ActiveCell_X]=document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"input").value
+        //Effacement de l'input
+        document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell").innerHTML=document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"input").value
+        document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell").className="onlyTd"
+    }
+//Création d'un input pour la cellule
+  let inputcell = document.createElement("input")
+  inputcell.value=celldata[IdCell_Y][IdCell_X];//donnée de la variable du tableau
+  inputcell.id=IdCell_Y+"-"+IdCell_X+"input";//Id de l'input Y-Xinput
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"cell").innerHTML="";//effacement des données du td
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"cell").className="TdWithInput"
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"cell").append(inputcell);//création de l'input
+
+//mise à jour de la cellules selectionné
+  ActiveCell_Y=IdCell_Y;
+  ActiveCell_X=IdCell_X;  
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"input").select() //selectionne l'input en saisie
+
+//Function pour save à la touche entrée
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"input").addEventListener('keypress', function (e) {
+    if (e.keyCode == 13) {
+      Saveinput(IdCell_X,IdCell_Y)
+    }
+  }, false);
+
+//Function pour collage dans la cellule
+  document.getElementById(IdCell_Y+"-"+IdCell_X+"input").addEventListener('paste', function (e) {
+  generateTable(e,IdCell_Y+"-"+IdCell_X+"input") 
+  }, false);
+} 
+
+//function simple click sur une cellule
+function tdclick(IdCell_Y,IdCell_X)
+{
+//mise en noir de la cellule précedente
+  if( document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell"))
+  {
+    document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell").style.borderColor = "black"
+  }
+//save de la cellule précedente selectionné si input
+  if(document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"input"))
+  {
+        Saveinput()
+  }
+      ActiveCell_X=IdCell_X;
+      ActiveCell_Y=IdCell_Y;
+}
+
+//function save de l'input dans la variable
+function Saveinput(IdCell_X,IdCell_Y)
+{
+  //ajout dans la variable à partir de l'input
+  celldata[ActiveCell_Y][ActiveCell_X]=document.getElementById(ActiveCell_Y +"-"+ActiveCell_X+"input").value;
+  //creation de la cellule
+  document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell").innerHTML=document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"input").value;
+  document.getElementById(ActiveCell_Y+"-"+ActiveCell_X+"cell").className="onlyTd"
+          ActiveCell_X=IdCell_X;
+          ActiveCell_Y=IdCell_Y;
+          //MakeCharts()
+}
+
+//generate data in variable
+function generateTable(e,idInput) {
+  //idInput est inutile
+  let  ActiveRow=0;
+  ActiveRow=ActiveCell_Y;
+  ActiveCol=ActiveCell_X;
+//recupération des données clipboard
+var data = e.clipboardData.getData('Text');
+var rows = data.split("\n");
+//création de la table
+var table = $('<table />');
+numrows=ActiveRow;//ligne ou la copy est effectué
+for(var y in rows) //colonne
+{
+    numcol=ActiveCol; //colonne ou la copy est effectué
+    var cells = rows[y].split("\t");
+    var row = $('<tr />');  
+
+  for(var x in cells)   //ligne
+  {
+    if(celldata[numrows]==undefined)
+    {
+      celldata[numrows]=[];
+    }
+    celldata[numrows][numcol]=cells[x];
+    numcol+=1; 
+  }
+numrows+=1;
+table.append(row);
+}
+// Insert into DOM
+$('#excel_table').html(table);
+
+generateTableFromCell() 
+}
+
+//generate table from data
+function generateTableFromCell() {
+var table = $('<table />');
+
+ //calculate Max X data
+ maxX=maxcolonne(celldata);
+
+ //ajout de la fonction delete
+
+
+ if(deleteLineCol==true)
+{
+  var row = $('<tr/>');
+  row.append('<td style="border-left-color:transparent !important;border-top-color:transparent !important;   ">'+""+'</td>');      
+  for (let x = 0; x < (maxX+1); x++) 
+  {
+    row.append('<td class="deleteinput" onclick="deleteElementTable(1,'+x+')">'+"&#x2715"+'</td>');      
+  }
+
+  row.append('<td class="addinput" onclick="AddElementTable(1)" >'+"&#x2b;"+'</td>');  
+  table.append(row);
+}
+
+
+  for (let y = 0; y < celldata.length; y++) 
+  {
+    var row = $('<tr/>');
+    if(deleteLineCol==true)
+        {
+          row.append('<td class="deleteinput" onclick="deleteElementTable(0,'+y+')">'+"&#x2715"+'</td>');
+        }
+    for (let x = 0; x < (maxX+1); x++) 
+    {
+        if(celldata[y][x]==undefined)
+        {
+          valueCell="";
+          celldata[y][x]="";
+        }
+        else
+        {
+          valueCell=celldata[y][x];
+        }
+         row.append('<td class="onlyTd" onclick="tdclick('+y+","+x+');" ondblclick="tddbclick('+y+","+x+');" id="'+y+"-"+x+'cell">'+valueCell+'</td>');      
+    }
+    table.append(row);
+  }
+  
+  if(deleteLineCol==true)
+  {
+  var row = $('<tr class="lastAdding">');
+  row.append('<td class="addinput" onclick="AddElementTable(0)" >'+"&#x2b;"+'</td>');  
+  table.append(row);  
+  }
+    
+$('#excel_table').html(table);
+//MakeCharts(celldata)
+//drawthePie()
+}
+
+//donne le nombre de colonne max possible
+function maxcolonne(dataArray){
+  maxX=0;
+  for (let y = 0; y < dataArray.length; y++) 
+    {
+
+      for (let x = 0; x < dataArray[y].length; x++) {
+        if(x>maxX){maxX=x}
+      }
+    }
+  return maxX;
+}
+
+//delete colonne ou ligne suite au click sur croix
+function deleteElementTable(RowCol,NumColRow)
+{
+  if(document.getElementById(ActiveCell_Y +"-"+ActiveCell_X+"input"))
+  {
+    Saveinput()
+  }
+
+if(RowCol==0)
+{
+  celldata.splice(NumColRow,1)
+}
+else
+{
+  for (let y = 0; y < celldata.length; y++) {
+    celldata[y].splice(NumColRow,1);
+  }
+}
+if(celldata.length==0)
+{
+  celldata[0]=[];
+  celldata[0][0]="";
+}
+
+var table = $('<table />');
+// celldata=[];
+// celldata=Celldataprov;
+// Insert into DOM
+$('#excel_table').html(table);
+generateTableFromCell() 
+}
+function AddElementTable(RowCol)
+{
+  if(document.getElementById(ActiveCell_Y +"-"+ActiveCell_X+"input"))
+  {
+    Saveinput()
+  }
+
+if(RowCol==0)
+{
+  max=celldata.length;
+  celldata[max]=[];
+  for (let x = 0; x < celldata[0].length; x++) {
+    celldata[max][x]="";
+  }
+}
+else
+{
+  for (let y = 0; y < celldata.length; y++) {
+  celldata[y].push("")
+  }
+}
+
+var table = $('<table />');
+// celldata=[];
+// celldata=Celldataprov;
+// Insert into DOM
+$('#excel_table').html(table);
+generateTableFromCell() 
+}
+
+
+function ColumnModif()
+{
+  if (deleteLineCol==true)
+  {
+    deleteLineCol=false;
+  }
+  else
+  {
+    deleteLineCol=true;
+  }
+  generateTableFromCell()
+}
+</script>
+
+
+<style>
+  body
+  {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .param
+  {
+    box-sizing: border-box;
+    width: 20px;
+    display: inline;
+  }
+    table{
+    border-collapse:collapse;
+    border-spacing: 0;
+    border:0px solid #000000;
+  }
+  td,td input{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    min-width: 30px;
+    margin: 0;
+    font-size: 16;
+    border-radius: 0px;
+  }
+  input{
+    outline: none;
+    border: 0;
+    display:block;
+    box-sizing: content-box;
+    width: 100%;
+    border-radius: 0px;
+    padding: 0px 0px 0px 0px;
+  }
+  textarea {
+    resize: none;
+  }
+  table td{
+  border:2px solid #000000;
+  margin: 10;
+  }
+  table th{
+  border:2px solid #000000;
+  border-bottom: 0px solid #000000;
+  }
+  td:hover {
+  /* border-color: blue; */
+  border: 2.1px solid blue !important;
+  }
+  th:hover {
+  background-color: grey;
+  }
+  /* padding avec input */
+  .TdWithInput
+  {
+    padding: 0px 0px 0px 0px;
+  }
+    /* padding sans input 5px sur chaque coté */
+  .onlyTd
+  {
+    padding: 0px 5px 0px 5px;
+  }
+  .deleteinput{
+    color:white;
+    text-align: center;
+    background-color: #D8A1A9;
+  }
+
+  .deleteinput:hover{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+  }
+  .addinput{
+    color:white;
+    text-align: center;
+    background-color: #9DCAC2;
+  }
+  .addinput:hover{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+  }
+  </style>
